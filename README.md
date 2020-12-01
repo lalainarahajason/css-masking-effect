@@ -6,3 +6,6 @@ The technique is rather simple, it's about superimposing two blocks of text and 
 
 # Demo
 Demo : https://bit.ly/2Vpyf76
+
+#@TODO
+Set the appearance of the circle element when it collides with another element.
