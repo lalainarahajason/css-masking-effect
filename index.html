@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="app.css" />
+    <title>Mask effect with mouse</title>
+</head>
+<body>
+    <div class="d-flex justify-center h-100">
+        <div class="mask-wrapper">
+            <span class="zindex-1">MASK EFFECT</span>
+            <span class="zindex-3 text-stroke">MASK EFFECT</span>
+        </div>
+    </div>
+    <span id="circle"></span>
+    <script>
+        (function(){
+            
+            /*
+            * Follow mouse
+            * @return void
+            */
+            function move_circle(element){
+                var wrapper = document.querySelector('.mask-wrapper');
+                var wrapper_pos = wrapper.getBoundingClientRect();
+                var element_width = element.offsetWidth;
+                var element_height = element.offsetHeight;
+                document.addEventListener('mousemove', function(e) {
+                    var left = e.pageX;
+                    var top = e.pageY;
+                    element.style.left = left + 'px';
+                    element.style.top = top + 'px';
+                    
+                    var elem1 = {
+                        element : element,
+                        width:element_width,
+                        height:element_height,
+                        x:left,
+                        y:top
+                    }
+                    
+                    // collision avec le bloc wrapper du texte
+                    collision(elem1, wrapper_pos);
+                });
+            }
+            
+            /*
+            * Detect collision between two elements
+            * @param object rect1
+            * @param object rect2
+            * @return void
+            */
+            function collision(elem1, elem2){
+                if (elem1.x < elem2.x + elem2.width &&
+                elem1.x + elem1.x > elem2.x &&
+                elem1.y < elem2.y + elem2.height &&
+                elem1.y + elem1.height > elem2.y) {
+                    // collision detected!
+                    elem1.element.style.transform="scale(12)";
+                } else {
+                    elem1.element.style.transform = "scale(1)";
+                }
+            }
+            
+            // Move circle element
+            var circle = document.getElementById('circle');
+            move_circle(circle);
+
+        })();
+    </script>
+</body>
+</html>
